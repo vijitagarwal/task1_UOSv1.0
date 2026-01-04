@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destinations - GhoomiGhoomi</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style> body { padding-top: 80px; } </style>
+</head>
+<body>
+
+    <div class="container py-4">
+        <h2 class="text-center fw-bold mb-4">Our Top Destinations</h2>
+        
+        <div class="text-center mb-4">
+            <button class="btn btn-outline-dark me-2" onclick="filterData('All')">All</button>
+            <button class="btn btn-outline-dark me-2" onclick="filterData('Beach')">Beach</button>
+            <button class="btn btn-outline-dark me-2" onclick="filterData('City')">City</button>
+        </div>
+
+        <div class="row g-4" id="destinations-container">
+            </div>
+    </div>
+
+    <script src="db.js"></script> <script src="auth.js"></script> <script src="main.js"></script> <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const container = document.getElementById('destinations-container');
+
+        function renderDestinations(data) {
+            container.innerHTML = "";
+            data.forEach(trip => {
+                const card = `
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm border-0">
+                        <img src="${trip.image}" class="card-img-top" style="height:250px; object-fit:cover;">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <h5 class="fw-bold">${trip.title}</h5>
+                                <span class="badge bg-warning text-dark">₹${trip.price}</span>
+                            </div>
+                            <p class="text-muted small">${trip.days} | ${trip.category}</p>
+                            <p>${trip.desc}</p>
+                            <button class="btn btn-dark w-100" onclick="bookTrip(${trip.id})">Book Now</button>
+                        </div>
+                    </div>
+                </div>`;
+                container.innerHTML += card;
+            });
+        }
+        renderDestinations(tourData); 
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const searchTerm = urlParams.get('search');
+
+    if (searchTerm) {
+        
+        document.querySelector('h2').innerText = `Results for "${searchTerm}"`;
+        const filtered = tourData.filter(item => 
+            item.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+            item.category.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        renderDestinations(filtered);
+    } else {
+        
+        renderDestinations(tourData);
+    }
+
+
+    </script>
+</body>
+</html>
