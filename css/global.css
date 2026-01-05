@@ -1,1 +1,35 @@
  body { padding-top: 80px; }
+
+ /* 1. Typography Consistency */
+body {
+    font-family: 'Poppins', sans-serif; /* Or whatever your main font is */
+    line-height: 1.6;
+    color: var(--text-color);
+}
+
+/* 2. Standardized Section Spacing */
+section {
+    padding: 80px 0;
+}
+
+/* 3. Global Button Styling (The "Arjun" Brand) */
+/* This ensures every button on the site looks the same regardless of the page */
+.btn-primary-custom {
+    background-color: var(--primary-color);
+    border: none;
+    padding: 12px 30px;
+    border-radius: 5px;
+    transition: 0.3s ease;
+}
+
+.btn-primary-custom:hover {
+    background-color: var(--secondary-color);
+}
+
+/* 4. Footer Styling (Since this is usually on every page) */
+footer {
+    background: #222;
+    color: white;
+    padding: 40px 0;
+    text-align: center;
+}
